@@ -6,7 +6,6 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdint.h>
-#include <sys/mman.h>
 
 #define MAX_GPIO_LISTENERS 32
 
@@ -56,13 +55,8 @@ struct gpio_pin {
     bool is_output;
 };
 
-#define GPIO_MAP_BLOCK_SIZE (4*1024)
-#define PAGE_SIZE  (4*1024)
-#define GPIO_BASE_OFFSET    0x200000
-
 // sysfs_utils.c
-int sysfs_write_file(const char *pathname, const char *value);
-int get_gpio_map(uint32_t **gpio_map);
+ssize_t sysfs_write_file(const char *pathname, const char *value);
 
 // nif_utils.c
 ERL_NIF_TERM make_ok_tuple(ErlNifEnv *env, ERL_NIF_TERM value);
